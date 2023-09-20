@@ -1,4 +1,8 @@
 import 'package:flutter/material.dart';
+import 'package:solver_for_24_game/solver.dart';
+import 'package:solver_for_24_game/widgets/game_cards.dart';
+import 'package:solver_for_24_game/widgets/solve_to_card.dart';
+import 'package:solver_for_24_game/widgets/split_view.dart';
 
 void main() {
   runApp(const MyApp());
@@ -11,8 +15,14 @@ class MyApp extends StatelessWidget {
   Widget build(BuildContext context) {
     return MaterialApp(
       title: '24 Game Solver',
-      theme: ThemeData(
-        colorScheme: ColorScheme.fromSeed(seedColor: const Color(0xFF333333)),
+      theme: ThemeData.dark().copyWith(
+        brightness: Brightness.dark,
+        colorScheme: const ColorScheme.dark(
+          primary: Color(0xFF333333),
+          background: Colors.black,
+          inversePrimary: Colors.black,
+          onPrimary: Colors.white,
+        ),
         useMaterial3: true,
       ),
       home: const HomePage(),
@@ -28,40 +38,63 @@ class HomePage extends StatefulWidget {
 }
 
 class _HomePageState extends State<HomePage> {
-  int _counter = 0;
-
-  void _incrementCounter() {
-    setState(() {
-      _counter++;
-    });
-  }
+  CardsInput? value;
+  int? solveTo = 24;
 
   @override
   Widget build(BuildContext context) {
+    print(value);
+    print(value);
+    print(value);
+    print(value);
+    print(value);
     return Scaffold(
-      appBar: AppBar(
-        backgroundColor: Theme.of(context).colorScheme.inversePrimary,
-        title: Text("24 Game Solver"),
-      ),
-      body: Center(
-        child: Column(
-          mainAxisAlignment: MainAxisAlignment.center,
-          children: <Widget>[
-            const Text(
-              'You have pushed the button this many times:',
-            ),
-            Text(
-              '$_counter',
-              style: Theme.of(context).textTheme.headlineMedium,
-            ),
+      backgroundColor: Colors.black,
+      body: SafeArea(
+        child: Stack(
+          children: [
+            Positioned(
+              top: 0,
+              left: 0,
+              right: 0,
+              bottom: 0,
+              child: ListView(
+                children: [
+                  AppBar(
+                    toolbarHeight: 60,
+                    centerTitle: true,
+                    backgroundColor: Theme.of(context).colorScheme.inversePrimary,
+                    title: const Text("24 Game Solver"),
+                  ),
+                  SplitView(
+                    children: [
+                      GameCardsContainer(onChange: (value) => setState(() => this.value = value)),
+                      Column(
+                        mainAxisAlignment: MainAxisAlignment.start,
+                        crossAxisAlignment: CrossAxisAlignment.start,
+                        children: [
+                          SolveToCard(
+                            onChange: (value) => setState(() => solveTo = value),
+                          )
+                        ],
+                      ),
+                    ],
+                  )
+                ],
+              ),
+            )
           ],
         ),
       ),
-      floatingActionButton: FloatingActionButton(
-        onPressed: _incrementCounter,
-        tooltip: 'Increment',
-        child: const Icon(Icons.add),
-      ), // This trailing comma makes auto-formatting nicer for build methods.
+      floatingActionButton: FloatingActionButton.extended(
+        onPressed: () {
+          if (value == null) return;
+          print(solve(value!.values, 24));
+        },
+        tooltip: 'Solve',
+        label: const Text("Solve"),
+        icon: const Icon(Icons.calculate),
+      ),
     );
   }
 }
