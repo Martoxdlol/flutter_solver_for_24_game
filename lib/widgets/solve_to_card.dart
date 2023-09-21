@@ -3,8 +3,9 @@ import 'package:solver_for_24_game/widgets/game_card.dart';
 import 'package:solver_for_24_game/widgets/solver_button.dart';
 
 class SolveToCard extends StatelessWidget {
-  const SolveToCard({super.key, required this.onChange});
+  const SolveToCard({super.key, required this.onChange, required this.onSolve});
   final void Function(int? value) onChange;
+  final void Function() onSolve;
 
   @override
   Widget build(BuildContext context) {
@@ -32,7 +33,9 @@ class SolveToCard extends StatelessWidget {
                 height: double.infinity,
                 child: ClipRRect(
                   borderRadius: BorderRadius.circular(12),
-                  child: SolverButton(),
+                  child: SolverButton(
+                    onTap: onSolve,
+                  ),
                 ),
               ),
             )

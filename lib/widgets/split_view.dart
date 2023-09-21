@@ -15,8 +15,9 @@ class SplitView extends StatelessWidget {
             ))
         .toList();
 
-    if (width > height) {
+    if (width > height && width > 500) {
       return Row(
+        crossAxisAlignment: CrossAxisAlignment.start,
         children: rowChildren,
       );
     }

@@ -17,11 +17,6 @@ class _GameCardsContainerState extends State<GameCardsContainer> {
 
   void updateState(void Function() callback) {
     setState(callback);
-    print(first);
-    print(second);
-    print(third);
-    print(fourth);
-
     if (first != null && second != null && third != null && fourth != null) {
       widget.onChange(CardsInput(first!, second!, third!, fourth!));
     }
@@ -36,21 +31,25 @@ class _GameCardsContainerState extends State<GameCardsContainer> {
         borderRadius: BorderRadius.circular(22),
         color: Theme.of(context).colorScheme.primary,
       ),
-      child: Column(
-        children: [
-          ContainerRow(
-            children: [
-              GameCard(onChange: (value) => updateState(() => first = value)),
-              GameCard(onChange: (value) => updateState(() => second = value)),
-            ],
-          ),
-          ContainerRow(
-            children: [
-              GameCard(onChange: (value) => updateState(() => third = value)),
-              GameCard(onChange: (value) => updateState(() => fourth = value)),
-            ],
-          )
-        ],
+      child: FocusTraversalGroup(
+        child: Column(
+          children: [
+            ContainerRow(
+              children: [
+                GameCard(onChange: (value) => updateState(() => first = value)),
+                GameCard(
+                    onChange: (value) => updateState(() => second = value)),
+              ],
+            ),
+            ContainerRow(
+              children: [
+                GameCard(onChange: (value) => updateState(() => third = value)),
+                GameCard(
+                    onChange: (value) => updateState(() => fourth = value)),
+              ],
+            )
+          ],
+        ),
       ),
     );
   }

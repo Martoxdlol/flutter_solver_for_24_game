@@ -3,7 +3,11 @@ import 'package:flutter/material.dart';
 import 'package:solver_for_24_game/random.dart';
 
 class GameCard extends StatefulWidget {
-  const GameCard({super.key, required this.onChange, this.defaultValue, this.small = false});
+  const GameCard(
+      {super.key,
+      required this.onChange,
+      this.defaultValue,
+      this.small = false});
   final void Function(int? value) onChange;
   final int? defaultValue;
   final bool small;
@@ -21,19 +25,22 @@ class _GameCardState extends State<GameCard> {
   Widget build(BuildContext context) {
     return AspectRatio(
       aspectRatio: 8 / 10,
-      child: InkWell(
-        enableFeedback: false,
+      child: GestureDetector(
+        // enableFeedback: false,
         onTap: () {
           FocusScope.of(context).requestFocus(focusNode);
         },
         child: Container(
-          decoration: BoxDecoration(color: Colors.white, borderRadius: BorderRadius.circular(12), boxShadow: [
-            BoxShadow(
-              color: Colors.black.withOpacity(0.2),
-              blurRadius: 8,
-              offset: const Offset(0, 4),
-            ),
-          ]),
+          decoration: BoxDecoration(
+              color: Colors.white,
+              borderRadius: BorderRadius.circular(12),
+              boxShadow: [
+                BoxShadow(
+                  color: Colors.black.withOpacity(0.2),
+                  blurRadius: 8,
+                  offset: const Offset(0, 4),
+                ),
+              ]),
           child: Stack(children: [
             Positioned(
               left: 0,
@@ -56,12 +63,17 @@ class _GameCardState extends State<GameCard> {
                     keyboardAppearance: Brightness.dark,
                     keyboardType: TextInputType.number,
                     textAlign: TextAlign.center,
-                    style: TextStyle(fontSize: widget.small ? 22 : 28, color: Colors.black),
+                    style: TextStyle(
+                        fontSize: widget.small ? 22 : 28, color: Colors.black),
                     decoration: InputDecoration.collapsed(
                       hintText: widget.defaultValue?.toString() ?? hint,
                       hintStyle: TextStyle(
-                          fontSize: widget.small ? (widget.defaultValue != null ? 22 : 18) : (widget.defaultValue != null ? 28 : 24),
-                          color: widget.defaultValue != null ? Colors.grey.shade700 : Colors.grey.shade300),
+                          fontSize: widget.small
+                              ? (widget.defaultValue != null ? 22 : 18)
+                              : (widget.defaultValue != null ? 28 : 24),
+                          color: widget.defaultValue != null
+                              ? Colors.grey.shade700
+                              : Colors.grey.shade300),
                     ),
                   ),
                 ),

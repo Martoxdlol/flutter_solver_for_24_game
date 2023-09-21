@@ -16,6 +16,7 @@ dependencies:
   flutter_launcher_icons: ^0.13.1
   dotted_border: ^2.0.0+3
   trotter: ^2.2.0
+  solve_24_game: ^1.0.3
 
 dev_dependencies:
   flutter_test:
